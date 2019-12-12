@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sketch.it Game Room</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="js/gameroomBackup.js"></script>
+    <link rel="stylesheet" href="css/mainmenu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<<<<<<< HEAD
+    <script src="js/mainMenuCanvasTemplate.js" defer></script>
+<!--    <<script src="js/canvasTemplate.js"></script>-->
+=======
+ <!--   <script src="js/canvasTemplate.js"></script> -->
+>>>>>>> 0ea5d98226dfacd0e2c97dc06a22ed4a3b1ed313
+   <!-- <script src="js/gameRoomCanvas.js"></script> -->
+
+</head>
+<body>
+<br>
+<div class="container-fluid">
+<<<<<<< HEAD
+    <h1 id="roomGameType"></h1>
+    <h2 id="countdown"></h2>
+    <div class = "row">
+        <div class = "col-md-6">
+            <p></p>
+            <div id="selectorButtons">
+                <button type="button" class="btn btn-dark btn-circle btn-md" id="colorBlack">Black</button>
+                <button type="button" class="btn btn-primary btn-circle btn-md" id="colorBlue">Blue</button>
+                <button type="button" class="btn btn-secondary btn-circle btn-md" id="colorPurple">Purple</button>
+                <button type="button" class="btn btn-secondary btn-circle btn-md" id="colorRed">Red</button>
+                <button type="button" class="btn btn-success btn-circle btn-md" id="colorGreen">Green</button>
+                <button type="button" class="btn btn-warning btn-circle btn-md" id="colorYellow">Yellow</button>
+                <button class="btn" id="draw" onclick="startPencil()"><i class="fa fa-pencil fa-2x"></i></button>
+                <button class="btn" id="eraser" onclick="startEraser()"><i class="fa fa-eraser fa-2x"></i></button>
+                <button type="button" class="btn btn-primary" id="clearCanvas">Clear Canvas</button>
+            </div>
+            <p></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <div class = "card card-body">
+                <canvas id="myCanvas" width="600" height="600" style="width:600px;height:600px;border:1px solid black;"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-8">
+            <h2 id="gameStatus">Game Not Started Yet, Vote to Start</h2>
+            <div id="wordChoicesDiv"></div>
+            <h2 id="usernameLocationForTests"></h2>&nbsp
+            <button type="submit" onclick="closeRoom()">Close Room</button>
+            <button type="submit" onclick="voteStart()" id="voteStart">Vote Start</button>
+            <button type="submit" onclick="roundEnd()">End Round</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="getUsersInRoom()">
+                Report User
+            </button>
+        </div>
+        <div class="col-sm-3 col-sm-offset-4 frame" style="right: auto">
+            <ul></ul>
+            <div>
+                <div class="msj-rta macro" style="margin:auto">
+                    <div class="text text-r" style="background:whitesmoke !important">
+                        <input class="mytext" placeholder="Type a message"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <button type="submit" class="btn btn-lg btn-default pull-right" onclick="sendMessage()">Send →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--
+        <div class="col-md-6 text-center">
+            <div id="wrapper">
+                <div id="menu">
+                    <p id="welcome" class="welcome">Welcome, <b></b></p>
+                    <div style="clear:both"></div>
+                </div>
+                <div id="chatbox">
+
+                </div>
+                <form name="message" onsubmit="return false">
+                    <input type="text" id="chattext" size="63"/>
+                    <input name="submitmsg" type="submit" id="submitmsg" value="Send" onclick="sendMessage()"/>
+                </form>
+            </div>
+        </div>
+        -->
+    </div>
+</div>
+<style>
+    form {
+        margin: 0;
+        padding: 0;
+    }
+
+    #wrapper {
+        margin: 0 auto;
+        padding-bottom: 25px;
+        width: 504px;
+        border: 1px solid;
+    }
+
+    #chatbox {
+        text-align: left;
+        margin: 0 auto;
+        margin-bottom: 25px;
+        height: 270px;
+        width: 430px;
+        border: 1px solid;
+        overflow: scroll;
+    }
+
+    #chattext {
+        margin-left: 15px;
+        width: 395px;
+        border: 1px solid;
+    }
+
+    .welcome {
+        padding-left: 5px;
+        float: left;
+    }
+</style>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Report a user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="clearUsers()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id = "reportForm">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Select User to Report</label>
+                        <select class="form-control" id="userSelection">
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Reason</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option>Spam</option>
+                            <option>Drawing Words</option>
+                            <option>Abuse/Harassment</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearUsers()">Close</button>
+                <button type="button" class="btn btn-primary" id="btnReport" onclick="sendReport()">Send Report</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

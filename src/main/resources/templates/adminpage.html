@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+    <script src ="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src = "https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/mainmenu.css">
+    <link rel="stylesheet" href="css/leaderboards.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script></head>
+<body>
+
+<div class="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="mainmenu">
+            Sketch.it <img src="https://i.imgur.com/jBcUmuG.png" width="30" height="30" alt="">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mainmenu">Play Game</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="leaderboards">Leaderboards</a>
+                </li>
+                <!-- Dropdown -->
+                <li id="navbardrop" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardropStorage" data-toggle="dropdown">
+                    </a>
+                    <div class="dropdown-menu" >
+                        <a class="dropdown-item" href="/adminpage">Admin Panel</a>
+                        <a class="dropdown-item" href="/analytics">Analytics</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div style="background-color: aqua">
+    Search By Username:
+    <br>
+    <input id = "searchedUser" type="text" placeholder="username">
+    <button onclick="search()">Search</button>
+    <button onclick="ban()">Ban User</button>
+    <button onclick="unban()">Unban User</button>
+<ul id = Usersearch></ul><br>
+</div>
+<h1>Users:</h1>
+<div>
+    <table border='1' id="userBoard" class="table table-striped table-bordered" width="70%">
+        <thead>
+        <tr>
+
+            <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Ban Status</th>
+        </tr>
+        </thead>
+        <tbody id = "boardBody">
+
+        </tbody>
+    </table>
+</div>
+<div>
+    <p id = reports></p>
+</div>
+
+<script src = "js/adminpage.js"></script>
+</body>
+</html>

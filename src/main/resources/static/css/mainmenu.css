@@ -1,0 +1,49 @@
+.btn-circle.btn-md {
+    width: 50px;
+    height: 50px;
+    padding: 7px 10px;
+    border-radius: 25px;
+    font-size: 10px;
+    text-align: center;
+}
+
+#colorPurple{
+    background-color: purple;
+}
+
+#colorRed{
+    background-color: red;
+}
+
+
+#selectorButtons{
+    margin-left: 40px;
+}
+
+#chatbox {
+    text-align: left;
+    margin: 0 auto;
+    margin-bottom: 25px;
+    padding: 10px;
+    height: 270px;
+    width: 430px;
+    border: 1px solid;
+    overflow: scroll;
+}
+
+#chattext {
+    width: 395px;
+    border: 1px solid;
+}
+
+form {
+    margin: 0;
+    padding: 0;
+}
+
+#wrapper {
+    margin: 0 auto;
+    padding-bottom: 25px;
+    width: 504px;
+    border: 1px solid;
+}

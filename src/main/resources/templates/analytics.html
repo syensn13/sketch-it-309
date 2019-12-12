@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analytics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/mainmenu.css">
+    <script src="js/analyticsGraphs.js"></script>
+</head>
+<body>
+<div class="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="mainmenu">
+            Sketch.it <img src="https://i.imgur.com/jBcUmuG.png" width="30" height="30" alt="">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mainmenu">Play Game</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="leaderboards">Leaderboards</a>
+                </li>
+                <!-- Dropdown -->
+                <li id="navbardrop" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardropStorage" data-toggle="dropdown">
+                    </a>
+                    <div class="dropdown-menu" >
+                        <a class="dropdown-item" href="/adminpage">Admin Panel</a>
+                        <a class="dropdown-item" href="/analytics">Analytics</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<h1>Sketch.it Analytics Page</h1>
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <input type="date" id="firstDateInput" value="">
+            <input type="date" id="secondDateInput" value="">
+            <button onclick="getFilteredData()">Submit</button>
+        </div>
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <div id="loginContainer">
+                    <canvas id="loginsCanvas" width="500" height="500"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <div id="gameTypeContainer">
+                    <canvas id="gameTypeCanvas" width="500" height="500"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <div id="libraryContainer">
+                    <canvas id="libraryCanvas" width="500" height="500"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <div id="playerNumContainer">
+                    <canvas id="numofPlayersCanvas" width="500" height="500"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

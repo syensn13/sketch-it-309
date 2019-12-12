@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sketch.it Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/mainmenu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+    <script src="js/mainMenuCanvasTemplate.js" defer></script>
+    <script src="js/gameroom.js" defer></script>
+    <link rel="stylesheet" href="css/navbar.css">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <div class="navbar">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="mainmenu">
+                        Sketch.it <img src="https://i.imgur.com/jBcUmuG.png" width="30" height="30" alt="">
+                    </a>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="mainmenu">Play Game</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="leaderboards">Leaderboards</a>
+                            </li>
+                            <!-- Dropdown -->
+                            <li id="navbardrop" class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbardropStorage" data-toggle="dropdown">
+                                </a>
+                                <div class="dropdown-menu" >
+                                    <a class="dropdown-item" href="/adminpage">Admin Panel</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <br/>
+            <h1 id="roomGameType"></h1>
+            <h2 id="countdown"></h2>
+            <div id="selectorButtons">
+                <button type="button" class="btn btn-dark btn-circle btn-md" id="colorBlack">Black</button>
+                <button type="button" class="btn btn-primary btn-circle btn-md" id="colorBlue">Blue</button>
+                <button type="button" class="btn btn-secondary btn-circle btn-md" id="colorPurple">Purple</button>
+                <button type="button" class="btn btn-secondary btn-circle btn-md" id="colorRed">Red</button>
+                <button type="button" class="btn btn-success btn-circle btn-md" id="colorGreen">Green</button>
+                <button type="button" class="btn btn-warning btn-circle btn-md" id="colorYellow">Yellow</button>
+                <button class="btn" id="draw" onclick="startPencil()"><i class="fa fa-pencil fa-2x"></i></button>
+                <button class="btn" id="eraser" onclick="startEraser()"><i class="fa fa-eraser fa-2x"></i></button>
+                <button type="button" class="btn btn-primary" id="clearCanvas">Clear Canvas</button>
+            </div>
+            <div id="canvasDiv">
+                <div id="mayhemmode" style="text-align: center;"></div>
+                <div id="disableCanvas" style="opacity: 0; width: 100%; height: 610px; margin-top: 25px; position: absolute;" hidden></div>
+                <canvas id="myCanvas" width="600" height="600" style="border:1px solid black;">
+
+                </canvas>
+            </div>
+            <h2 id="gameStatus">Game Not Started Yet, Vote to Start</h2>
+            <div id="wordChoicesDiv"></div>
+            <button type="submit" onclick="voteStart()" id="voteStart">Vote Start</button>
+        </div>
+        <div class="col-md-6 text-center">
+            <br>
+            <div class="chatboxCanvas">
+                <div id="roomCanvas">
+                </div>
+            </div>
+            <div id="wrapper">
+                <div id="menu">
+                    <p id="welcome" class="welcome">Welcome, <b></b></p>
+                    <div style="clear:both"></div>
+                </div>
+                <div id="chatbox">
+
+                </div>
+                <form name="message" onsubmit="return false">
+                    <input type="text" id="chattext" size="63"/>
+                    <input name="submitmsg" type="submit" id="submitmsg" value="Send" onclick="sendMessage()"/>
+                </form>
+            </div>
+            <h2>Users:</h2>
+            <ul id="usersList" style="list-style-type:none;">
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Modal for after round points display -->
+<div class="modal fade" id="pointsModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pointsModalLabel">Points</h5>
+            </div>
+            <div class="modal-body">
+                <ul id="afterRoundPoints" style="list-style-type:none;">
+                </ul>
+                <div id="otherTeamCanvas" class="text-center">
+                    <canvas id="otherCanvas" width="600" height="600" style="border:1px solid black;margin-top:30%;margin-left:5%">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal for game over display -->
+<div class="modal fade" id="gameOverModal" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="gameOverModalLabel">Game Over</h5>
+            </div>
+            <div class="modal-body">
+                Ranks:
+                <ul id="gameOverPoints" style="list-style-type:none;">
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    form {
+        margin: 0;
+        padding: 0;
+    }
+
+    #wrapper {
+        margin: 0 auto;
+        padding-bottom: 25px;
+        width: 504px;
+        border: 1px solid;
+    }
+
+    #chatbox {
+        text-align: left;
+        margin: 0 auto;
+        margin-bottom: 25px;
+        height: 270px;
+        width: 430px;
+        border: 1px solid;
+        overflow: scroll;
+    }
+
+    #chattext {
+        margin-left: 15px;
+        width: 395px;
+        border: 1px solid;
+    }
+
+    .welcome {
+        padding-left: 5px;
+        float: left;
+    }
+</style>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="getUsersForReport()">
+    Report User
+</button>
+<!-- Modal for reporting a user-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Report a user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="clearUsersForReport()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id = "reportForm">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Select User to Report</label>
+                        <select class="form-control" id="userSelection">
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Reason</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option>Spam</option>
+                            <option>Drawing Words</option>
+                            <option>Abuse/Harassment</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearUsersForReport()">Close</button>
+                <button type="button" class="btn btn-primary" id="btnReport" onclick="sendReport()">Send Report</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/loginform.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <script src="js/loginRegistration.js"></script>
+    <script src="js/dataAnlysisCollection.js" defer></script>
+</head>
+
+<body>
+
+<div class="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="mainmenu">
+            Sketch.it <img src="https://i.imgur.com/jBcUmuG.png" width="30" height="30" alt="">
+        </a>
+    </nav>
+</div>
+<!--
+<h1 style="text-align: center">Login Form</h1> -->
+<form id="loginForm" onsubmit="return false">
+    <div class="container">
+        <label for="username"><b>Username</b></label>
+        <br>
+        <input id ="usernameInput" type="text" placeholder="Enter Username" name="username" required>
+        <br>
+
+        <label for="psw"><b>Password</b></label>
+        <br>
+        <input id="passwordInput" type="password" placeholder="Enter Password" name="psw" required>
+        <br>
+
+        <div class="buttons">
+            <button class = "button button:hover" type="submit" onclick="loginValidation()">Login</button>
+            <button class = "button button:hover cancelbtn" type="button">Cancel</button>
+        </div>
+    </div>
+</form>
+<div class="container">
+    <a class="a:hover" href="/registration"> Dont have an account? Click here to make one.</a>
+    <p></p>
+    <a id = "guestA" class = "a:hover" onclick="createGuestName()" > Want to play as a guest? Click here.</a>
+</div>
+<div id="loginErrorDiv"></div>
+</body>
+
+</html>

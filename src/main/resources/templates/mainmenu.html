@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sketch.it Main Menu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/mainmenu.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="js/mainmenu.js" defer></script>
+    <script src="js/mainMenuCanvasTemplate.js" defer></script>
+    <script src="js/dataAnlysisCollection.js" defer></script>
+
+</head>
+<body>
+<div class="row">
+    <div class="col-md-6 text-center">
+        <div class="navbar">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="mainmenu">
+                    Sketch.it <img src="https://i.imgur.com/jBcUmuG.png" width="30" height="30" alt="">
+                </a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="mainmenu">Play Game</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="leaderboards">Leaderboards</a>
+                        </li>
+                        <!-- Dropdown -->
+                        <li id="navbardrop" class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardropStorage" data-toggle="dropdown">
+                            </a>
+                            <div class="dropdown-menu" >
+                                <a class="dropdown-item" href="/adminpage">Admin Panel</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <button type="button" style="align: left; float: left;" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="getCategories()">
+            Create Game
+        </button>
+        <br/>
+        <br/>
+        <div id="selectorButtons">
+            <button type="button" class="btn btn-dark btn-circle btn-md" id="colorBlack">Black</button>
+            <button type="button" class="btn btn-primary btn-circle btn-md" id="colorBlue">Blue</button>
+            <button type="button" class="btn btn-secondary btn-circle btn-md" id="colorPurple">Purple</button>
+            <button type="button" class="btn btn-secondary btn-circle btn-md" id="colorRed">Red</button>
+            <button type="button" class="btn btn-success btn-circle btn-md" id="colorGreen">Green</button>
+            <button type="button" class="btn btn-warning btn-circle btn-md" id="colorYellow">Yellow</button>
+            <button class="btn" id="draw" onclick="startPencil()"><i class="fa fa-pencil fa-2x"></i></button>
+            <button class="btn" id="eraser" onclick="startEraser()"><i class="fa fa-eraser fa-2x"></i></button>
+            <button type="button" class="btn btn-primary" id="clearCanvas">Clear Canvas</button>
+        </div>
+        <div id="canvasDiv">
+            <canvas id="myCanvas" width="600" height="600" style="border:1px solid black;">
+
+            </canvas>
+        </div>
+        <div class="chatboxCanvas">
+            <div id="roomCanvas">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 text-center">
+        <br>
+        <div class="chatboxCanvas">
+            <div id="roomCanvas">
+            </div>
+        </div>
+        <div id="wrapper">
+            <div id="menu">
+                <p id="welcome" class="welcome">Welcome, <b></b></p>
+                <div style="clear:both"></div>
+            </div>
+            <div id="chatbox">
+
+            </div>
+            <form name="message" onsubmit="return false">
+                <input type="text" id="chattext" size="63"/>
+                <input name="submitmsg" type="submit" id="submitmsg" value="Send" onclick="sendMessage()"/>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">sketch.it Game Creation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="clearCategories()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="roomName">Room Name</label>
+                        <input type="email" class="form-control" id="roomName" placeholder="Room Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="gameType">Select Game Type</label>
+                        <select class="form-control" id="gameType">
+                            <option>Classic</option>
+                            <option>Teams</option>
+                            <option>Mayhem</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="maxNumOfPlayers">Max Number of Players</label>
+                        <select class="form-control" id="maxNumOfPlayers">
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="maxNumOfPlayers">Select Word Library</label>
+                        <select class="form-control" id="librarySelection">
+                            <option>All</option>
+                        </select>
+                    </div>
+                </form>
+                <div class="form-group">
+                    Enable Password?<input type="checkbox" id="isPwChecked"
+                                           onclick="document.getElementById('generateText').disabled=!this.checked;">
+
+                    Password:
+                    <input id="generateText" name="row_password" type="text" size="20" readonly="readonly"
+                           disabled="true">
+                    <input id="generatePassword" type="button" class="button" value="Generate"
+                           onclick="random_password_generate(5,10);">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearCategories()">Close
+                </button>
+                <button type="button" class="btn btn-primary" id="gameStart" onclick="createRoom()">Start Game</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal for password -->
+<div class="modal fade" id="passwordModal" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="gameOverModalLabel">Password</h5>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="passwordInput"/>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
